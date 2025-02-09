@@ -37,27 +37,27 @@ export default function Home() {
   const renderTable = (status: string) => (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[600px] border border-gray-200 shadow-md rounded-lg overflow-hidden bg-white">
-        <thead className="bg-blue-600 text-white">
-          <tr>
-            <th className="p-3 text-left">Title</th>
-            <th className="p-3 text-left">Category</th>
-            <th className="p-3 text-left">Action</th>
-          </tr>
-        </thead>
+      <thead className="bg-blue-600 text-white">
+        <tr>
+          <th className="p-3 text-center w-1/3">Title</th>
+          <th className="p-3 text-center w-1/3">Category</th>
+          <th className="p-3 text-center w-1/3">Action</th>
+        </tr>
+      </thead>
         <tbody>
           {posts.filter(post => post.status === status).map((post) => (
             <tr key={post.id} className="border-b hover:bg-gray-100 transition">
-              <td className="p-3 text-black font-medium break-words max-w-[200px]">{post.title}</td>
-              <td className="p-3 text-black font-medium break-words max-w-[150px]">{post.category}</td>
-              <td className="p-3 flex flex-wrap gap-2">
-                <Link href={`/articles/${post.id}?id=${post.id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">
+              <td className="p-3 text-left">{post.title}</td>
+              <td className="p-3 text-left">{post.category}</td>
+              <td className="p-3 flex justify-center items-center gap-2 flex-wrap">
+                <Link href={`/articles/${post.id}?id=${post.id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition min-w-max">
                   ✏️ Edit
                 </Link>
-                <button onClick={() => handleDelete(post.id)} className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
+                <button onClick={() => handleDelete(post.id)} className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition min-w-max">
                   🗑️ Delete
                 </button>
                 {status === "publish" && (
-                  <Link href={`/articles/preview?id=${post.id}`} className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
+                  <Link href={`/articles/preview?id=${post.id}`} className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition min-w-max">
                     🔍 Preview
                   </Link>
                 )}

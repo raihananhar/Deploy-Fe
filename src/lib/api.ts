@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000/api/"; // Sesuaikan dengan backend lo
+// ✅ Ganti localhost dengan domain Railway
+const API_BASE_URL = "https://deploy-be-production-c297.up.railway.app/api/";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,

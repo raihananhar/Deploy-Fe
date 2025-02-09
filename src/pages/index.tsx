@@ -21,7 +21,6 @@ export default function Home() {
       .catch((err) => console.error(err));
   }, []);
 
-  // Fungsi Hapus Artikel (Pindah ke Trash)
   const handleDelete = async (id: number) => {
     if (confirm("Apakah Anda yakin ingin menghapus artikel ini?")) {
       try {
@@ -35,38 +34,39 @@ export default function Home() {
     }
   };
 
-  // Fungsi Render Tabel untuk Published, Drafts, dan Trashed
   const renderTable = (status: string) => (
-    <table className="w-full border border-gray-200 shadow-md rounded-lg overflow-hidden bg-white">
-      <thead className="bg-blue-600 text-white">
-        <tr>
-          <th className="p-3 text-left">Title</th>
-          <th className="p-3 text-left">Category</th>
-          <th className="p-3 text-left">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {posts.filter(post => post.status === status).map((post) => (
-          <tr key={post.id} className="border-b hover:bg-gray-100 transition">
-            <td className="p-3 text-black font-medium">{post.title}</td>
-            <td className="p-3 text-black font-medium">{post.category}</td>
-            <td className="p-3 flex gap-2">
-              <Link href={`/articles/${post.id}?id=${post.id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">
-                ✏️ Edit
-              </Link>
-              <button onClick={() => handleDelete(post.id)} className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
-                🗑️ Delete
-              </button>
-              {status === "publish" && (
-                <Link href={`/articles/preview?id=${post.id}`} className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
-                  🔍 Preview
-                </Link>
-              )}
-            </td>
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[600px] border border-gray-200 shadow-md rounded-lg overflow-hidden bg-white">
+        <thead className="bg-blue-600 text-white">
+          <tr>
+            <th className="p-3 text-left">Title</th>
+            <th className="p-3 text-left">Category</th>
+            <th className="p-3 text-left">Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {posts.filter(post => post.status === status).map((post) => (
+            <tr key={post.id} className="border-b hover:bg-gray-100 transition">
+              <td className="p-3 text-black font-medium break-words max-w-[200px]">{post.title}</td>
+              <td className="p-3 text-black font-medium break-words max-w-[150px]">{post.category}</td>
+              <td className="p-3 flex flex-wrap gap-2">
+                <Link href={`/articles/${post.id}?id=${post.id}`} className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">
+                  ✏️ Edit
+                </Link>
+                <button onClick={() => handleDelete(post.id)} className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
+                  🗑️ Delete
+                </button>
+                {status === "publish" && (
+                  <Link href={`/articles/preview?id=${post.id}`} className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
+                    🔍 Preview
+                  </Link>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   return (
@@ -74,14 +74,12 @@ export default function Home() {
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl">
         <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">Dashboard Artikel</h1>
 
-        {/* Tombol Tambah Artikel */}
         <Link href="/articles/new" className="bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 mb-4 block text-center">
           ➕ Tambah Artikel
         </Link>
 
-        {/* Tabs untuk Published, Drafts, Trashed */}
         <Tabs defaultValue="publish" className="w-full mt-4">
-          <TabsList className="flex gap-4 border-b border-gray-300 p-2">
+          <TabsList className="flex gap-4 border-b border-gray-300 p-2 overflow-x-auto">
             <TabsTrigger value="publish" className="px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-lg transition font-semibold">
               Published
             </TabsTrigger>

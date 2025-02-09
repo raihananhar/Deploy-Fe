@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 
 interface Post {
